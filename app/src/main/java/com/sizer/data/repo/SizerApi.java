@@ -3,6 +3,7 @@ package com.sizer.data.repo;
 
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
+import com.sizer.model.entity.SizerUser;
 
 
 import org.json.JSONObject;
@@ -23,17 +24,12 @@ public interface SizerApi {
 
     @GET("bpp/user/checkVersionEx")
     Call<Void> checkVersionEmpty();
+
     @GET("bpp/user/checkVersionEx")
     Observable<ApiResponse<Version>> checkVersion();
 
     @POST("bpp/user/save")
-    Observable<ApiResponse<JSONObject>> saveUser(@Query("email") String email, @Query("password") String password,
-                                                 @Query("name") String name, @Query("gender") String gender,
-                                                 @Query("device")String device, @Query("measurementUnit") String measurementUnit,
-                                                 @Query("promotionCode") String promotionCode, @Query("manualFolder") String manualFolder,
-                                                 @Query("measurmentsJson") String measurmentsJson);
-    @POST("bpp/user/save")
-    Observable<ApiResponse<JSONObject>> saveUSer(@QueryMap Map<String, String> params);
+    Observable<SizerUser> saveUser(@Query("user") SizerUser user);
 
     @Multipart
     @POST("bp/images/postscan")
