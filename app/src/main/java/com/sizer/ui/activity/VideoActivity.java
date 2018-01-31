@@ -34,6 +34,7 @@ import rx.Subscription;
 
 public class VideoActivity extends BaseActivity {
 
+    private final int delayMillis = 2000;
     @BindView(R.id.camera)
     CameraView cameraView;
     List<SavePhotoTask> tasks = new ArrayList<>();
@@ -140,7 +141,7 @@ public class VideoActivity extends BaseActivity {
             public void run() {
                 cameraView.stopVideo();
             }
-        }, 60000);
+        }, delayMillis);
 
     }
 

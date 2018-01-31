@@ -7,12 +7,12 @@
     tools:context="com.sizer.ui.activity.RegisterActivity">
 
     <FrameLayout
-        android:id="@+id/frame_splash"
+        android:id="@+id/activity_register"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/create_account_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@android:dimen/app_icon_size"

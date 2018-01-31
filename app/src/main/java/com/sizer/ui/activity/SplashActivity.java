@@ -22,7 +22,6 @@ import retrofit2.Response;
 public class SplashActivity extends BaseActivity {
 
     private StartedFragment fragment;
-    //TODO need use bind?
     View v;
     private IRemoteRepository remoteRepository;
 
@@ -39,20 +38,16 @@ public class SplashActivity extends BaseActivity {
         fragment = new StartedFragment();
         remoteRepository = App.getAppComponent().remoteDataRepository();
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.INTERNET)
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.INTERNET)) {
-                //TODO ?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.INTERNET},
                         7);
             }
-        }
-        else {
+        } else {
             fetchVersion();
         }
 
@@ -81,11 +76,7 @@ public class SplashActivity extends BaseActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     fetchVersion();
-
-                } else {
-                    //TODO ?
                 }
-                return;
             }
         }
     }
@@ -100,7 +91,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                showMessage("Version accepted");
+                showMessage("Failure");
                 setGettingStarted();
             }
         });
