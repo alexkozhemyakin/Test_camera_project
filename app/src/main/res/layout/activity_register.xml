@@ -13,10 +13,10 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
-            tools:layout_editor_absoluteX="124dp"
-            tools:layout_editor_absoluteY="140dp" />
+            android:layout_margin="@android:dimen/app_icon_size"
+            android:layout_gravity="bottom"
+            android:text="@string/create_account" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
