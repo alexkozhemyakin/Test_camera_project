@@ -1,4 +1,4 @@
-package com.sizer.model.common;
+package com.sizer.model.entity;
 
 
 public enum Gender {

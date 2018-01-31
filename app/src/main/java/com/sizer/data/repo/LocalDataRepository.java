@@ -5,7 +5,7 @@ import android.provider.Settings;
 
 import com.sizer.data.ILocalRepository;
 import com.sizer.model.ScanData;
-import com.sizer.model.SizerUser;
+import com.sizer.model.entity.SizerUser;
 
 
 public class LocalDataRepository implements ILocalRepository {

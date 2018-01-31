@@ -1,7 +1,7 @@
-package com.sizer.model;
+package com.sizer.model.entity;
 
 
-import com.sizer.model.common.Gender;
+import com.sizer.model.entity.Gender;
 
 public class SizerUser {
     private String email;

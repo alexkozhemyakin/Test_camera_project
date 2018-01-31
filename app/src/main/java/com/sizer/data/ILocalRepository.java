@@ -1,7 +1,7 @@
 package com.sizer.data;
 
 import com.sizer.model.ScanData;
-import com.sizer.model.SizerUser;
+import com.sizer.model.entity.SizerUser;
 
 public interface ILocalRepository {
 
