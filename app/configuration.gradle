@@ -1,0 +1,22 @@
+ext {
+    //App name
+    versionCode = 1
+    versionName = "1.0"
+
+    //Compilation
+    minSdkVersion = 16
+    compileSdkVersion = 25
+    targetSdkVersion = 25
+
+    //Libraries
+    buildToolsVersion = '26.1.0'
+    supportLibraryVersion = '26.1.0'
+    daggerVersion = '2.10'
+
+
+    retrofitVersion = '2.3.0'
+    okhttpVersion = '3.9.1'
+
+    butterKnifeVersion = '8.5.1'
+
+}
