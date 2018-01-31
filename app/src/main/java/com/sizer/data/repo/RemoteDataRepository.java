@@ -2,6 +2,7 @@ package com.sizer.data.repo;
 
 import com.sizer.data.IRemoteRepository;
 import com.sizer.model.ApiResponse;
+import com.sizer.model.entity.SizerUser;
 
 import org.json.JSONObject;
 
@@ -15,24 +16,25 @@ import retrofit2.Retrofit;
 
 public class RemoteDataRepository implements IRemoteRepository {
 
-    private Retrofit retrofit;
+    private SizerApi sizerApi;
 
     public RemoteDataRepository(Retrofit retrofit) {
-        this.retrofit = retrofit;
+        sizerApi = retrofit.create(SizerApi.class);
     }
 
     @Override
     public Call<Void> getVersion() {
-        return retrofit.create(SizerApi.class).checkVersionEmpty();
+        Call<Void> voidCall = sizerApi.checkVersionEmpty();
+        return voidCall;
     }
 
     @Override
-    public Observable<ApiResponse<JSONObject>> saveUser(Map<String, String> params) {
-        return retrofit.create(SizerApi.class).saveUSer(params);
+    public Observable<SizerUser> saveUser(SizerUser user) {
+        return sizerApi.saveUser(user);
     }
 
     @Override
     public Observable<ApiResponse<JSONObject>> uploadScan(MultipartBody.Part image, String imageId, String userId, String scanId) {
-        return retrofit.create(SizerApi.class).uploadScan(image, imageId, userId, scanId);
+        return sizerApi.uploadScan(image, imageId, userId, scanId);
     }
 }

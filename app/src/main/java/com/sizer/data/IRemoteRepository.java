@@ -2,6 +2,7 @@ package com.sizer.data;
 
 
 import com.sizer.model.ApiResponse;
+import com.sizer.model.entity.SizerUser;
 
 import org.json.JSONObject;
 
@@ -21,10 +22,9 @@ public interface IRemoteRepository {
 
     /**
      * Create/save user
-     * @param params
      * @return
      */
-    Observable<ApiResponse<JSONObject>> saveUser(Map<String, String> params);
+    Observable<SizerUser> saveUser(SizerUser user);
 
     /**
      * Upload scan image
