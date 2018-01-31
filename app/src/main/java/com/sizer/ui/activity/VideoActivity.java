@@ -14,6 +14,7 @@ import com.sizer.App;
 import com.sizer.R;
 import com.sizer.data.ILocalRepository;
 import com.sizer.model.ScanData;
+import com.sizer.ui.activity.video.SavePhotoTask;
 import com.wonderkiln.camerakit.CameraKit;
 import com.wonderkiln.camerakit.CameraKitEventCallback;
 import com.wonderkiln.camerakit.CameraKitImage;
@@ -35,11 +36,10 @@ public class VideoActivity extends BaseActivity {
 
     @BindView(R.id.camera)
     CameraView cameraView;
-    List<SavePhotoTask> tasks = new ArrayList<>();;
+    List<SavePhotoTask> tasks = new ArrayList<>();
     private static int frameCnt;
     Subscription subscription;
-    private final int width = 480;
-    private final int height = 640;
+
 
     private static ILocalRepository localRepository;
 
@@ -61,8 +61,9 @@ public class VideoActivity extends BaseActivity {
                         .subscribe(granted -> {
                             if (granted) {
                                 if (!cameraView.isStarted()) {
-                                    cameraView.setVideoQuality(CameraKit.Constants.VIDEO_QUALITY_480P);
-                                    cameraView.setJpegQuality(20);
+//                                    cameraView.setVideoQuality(CameraKit.Constants.VIDEO_QUALITY_480P);
+                                    cameraView.setJpegQuality(100);
+                                    cameraView.setFocus(CameraKit.Constants.FOCUS_OFF);
                                     cameraView.postDelayed(capturePreview, 1000);
                                     //TODO: or capture captureVideo() call to capture video
                                 }
@@ -102,17 +103,10 @@ public class VideoActivity extends BaseActivity {
 
                 @Override
                 public void callback(CameraKitImage cameraKitImage) {
-                    Bitmap bmp = cameraKitImage.getBitmap().copy(Bitmap.Config.RGB_565, true);
-                    bmp.setWidth(width);
-                    bmp.setHeight(height);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    SavePhotoTask task = new SavePhotoTask();
-                    tasks.add(task);
                     frameCnt++;
-                    task.doInBackground(byteArray);
-
+                    SavePhotoTask task = new SavePhotoTask(localRepository, frameCnt);
+                    task.doInBackground(cameraKitImage);
+                    tasks.add(task);
                 }
             });
             if (frameCnt > 9) {
@@ -140,36 +134,15 @@ public class VideoActivity extends BaseActivity {
             }
         });
 
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                cameraView.stopVideo();
-//            }
-//        }, 60000);
-
-    }
-
-    static class SavePhotoTask extends AsyncTask<byte[], String, String> {
-        @Override
-        protected String doInBackground(byte[]... jpeg) {
-
-            String str = localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(new ScanData()).getScanId() + File.separator;
-            File scanPath = new File(Environment.getExternalStorageDirectory(), str);
-            File photo = new File(scanPath, String.format("%06d", frameCnt) + ".jpg");
-
-            scanPath.mkdirs();
-
-            try {
-                FileOutputStream fos = new FileOutputStream(photo);
-
-                fos.write(jpeg[0]);
-                fos.close();
-            } catch (IOException e) {
-                Log.e("Sizer", "Exception in photoCallback", e);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cameraView.stopVideo();
             }
+        }, 60000);
 
-            return (null);
-        }
     }
+
+
 }
