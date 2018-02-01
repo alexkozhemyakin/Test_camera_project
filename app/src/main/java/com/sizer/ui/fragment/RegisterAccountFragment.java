@@ -5,11 +5,7 @@ import com.sizer.ui.activity.BaseActivity;
 
 import butterknife.OnClick;
 
-public class RegisterFragment extends BaseFragment {
-
-
-    public RegisterFragment() {
-    }
+public class RegisterAccountFragment extends BaseFragment {
 
     @OnClick(R.id.btn_save)
     void callGetStarted() {

@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.sizer.R;
-import com.sizer.ui.fragment.RegisterFragment;
+import com.sizer.ui.fragment.RegisterAccountFragment;
 
 import butterknife.OnClick;
 
@@ -23,7 +23,7 @@ public class RegisterActivity extends BaseActivity {
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.fade_out, R.anim.fade_in);
 
-        ft.replace(R.id.activity_register, new RegisterFragment());
+        ft.replace(R.id.activity_register, new RegisterAccountFragment());
         ft.commit();
     }
 
