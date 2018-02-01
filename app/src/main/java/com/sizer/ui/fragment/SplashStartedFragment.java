@@ -12,11 +12,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartedFragment extends BaseFragment {
-
-
-    public StartedFragment() {
-    }
+public class SplashStartedFragment extends BaseFragment {
 
     @OnClick(R.id.btn_start)
     void callGetStarted() {

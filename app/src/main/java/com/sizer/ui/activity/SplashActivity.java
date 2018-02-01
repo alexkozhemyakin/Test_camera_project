@@ -15,7 +15,7 @@ import com.sizer.R;
 import com.sizer.data.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
-import com.sizer.ui.fragment.StartedFragment;
+import com.sizer.ui.fragment.SplashStartedFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
     private final String RESULT_CODE_OK = "OK";
     private final String RESULT_CODE_ERROR = "ERROR";
 
-    private StartedFragment fragment;
+    private SplashStartedFragment fragment;
     private View v;
     private IRemoteRepository remoteRepository;
 
@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         v = findViewById(android.R.id.content);
-        fragment = new StartedFragment();
+        fragment = new SplashStartedFragment();
         remoteRepository = App.getAppComponent().remoteDataRepository();
 
         int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET);
