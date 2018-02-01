@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
     private final String RESULT_CODE_OK = "OK";
     private final String RESULT_CODE_ERROR = "ERROR";
 
-    private SplashStartedFragment fragment;
+    private SplashStartedFragment fragment = new SplashStartedFragment();
     private View v;
     private IRemoteRepository remoteRepository;
 
@@ -40,7 +40,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         v = findViewById(android.R.id.content);
-        fragment = new SplashStartedFragment();
         remoteRepository = App.getAppComponent().remoteDataRepository();
 
         int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET);

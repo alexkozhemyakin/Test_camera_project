@@ -3,6 +3,7 @@ package com.sizer.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.FrameLayout;
 
 import com.sizer.R;
 import com.sizer.ui.fragment.RegisterAccountFragment;
@@ -19,6 +20,8 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.create_account_btn)
     void replaceFragment() {
+        FrameLayout lyt = (FrameLayout) findViewById(R.id.activity_register);
+        lyt.removeAllViews();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.fade_out, R.anim.fade_in);
