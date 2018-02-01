@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import com.sizer.App;
 import com.sizer.R;
 import com.sizer.data.IRemoteRepository;
+import com.sizer.model.ApiResponse;
+import com.sizer.model.Version;
 import com.sizer.ui.fragment.StartedFragment;
 
 import retrofit2.Call;
@@ -21,8 +23,11 @@ import retrofit2.Response;
 
 public class SplashActivity extends BaseActivity {
 
+    private final String RESULT_CODE_OK = "OK";
+    private final String RESULT_CODE_ERROR = "ERROR";
+
     private StartedFragment fragment;
-    View v;
+    private View v;
     private IRemoteRepository remoteRepository;
 
     @Override
@@ -38,20 +43,15 @@ public class SplashActivity extends BaseActivity {
         fragment = new StartedFragment();
         remoteRepository = App.getAppComponent().remoteDataRepository();
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.INTERNET},
-                        7);
+        int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
+                ActivityCompat.requestPermissions(
+                        this, new String[]{Manifest.permission.INTERNET}, 7);
             }
         } else {
             fetchVersion();
         }
-
-
     }
 
     public void setGettingStarted() {
@@ -68,31 +68,33 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 7: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchVersion();
-                }
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 7) {
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchVersion();
             }
         }
     }
 
     private void fetchVersion() {
-        remoteRepository.getVersion().enqueue(new Callback<Void>() {
+        remoteRepository.getVersion().enqueue(new Callback<ApiResponse<Version>>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                showMessage("Version accepted");
-                setGettingStarted();
+            public void onResponse(Call<ApiResponse<Version>> call, Response<ApiResponse<Version>> response) {
+                ApiResponse<Version> body = response.body();
+                if (body != null && RESULT_CODE_OK.equals(body.getResultCode())) {
+                    showMessage("Version accepted");
+                    setGettingStarted();
+                } else if (body == null || RESULT_CODE_ERROR.equals(body.getResultCode())) {
+                    showMessage("Failure");
+                    // TODO: 2/1/18 add behaviour
+                }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<Version>> call, Throwable t) {
                 showMessage("Failure");
-                setGettingStarted();
+                // TODO: 2/1/18 add behaviour
             }
         });
     }

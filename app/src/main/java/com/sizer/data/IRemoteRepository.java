@@ -2,6 +2,7 @@ package com.sizer.data;
 
 
 import com.sizer.model.ApiResponse;
+import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
 
 import org.json.JSONObject;
@@ -18,7 +19,7 @@ public interface IRemoteRepository {
      * Fetch remote version
      * @return
      */
-    Call<Void> getVersion();
+    Call<ApiResponse<Version>> getVersion();
 
     /**
      * Create/save user

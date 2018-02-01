@@ -2,6 +2,7 @@ package com.sizer.data.repo;
 
 import com.sizer.data.IRemoteRepository;
 import com.sizer.model.ApiResponse;
+import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
 
 import org.json.JSONObject;
@@ -23,8 +24,8 @@ public class RemoteDataRepository implements IRemoteRepository {
     }
 
     @Override
-    public Call<Void> getVersion() {
-        Call<Void> voidCall = sizerApi.checkVersionEmpty();
+    public Call<ApiResponse<Version>> getVersion() {
+        Call<ApiResponse<Version>> voidCall = sizerApi.checkVersion();
         return voidCall;
     }
 

@@ -17,16 +17,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface SizerApi {
 
-    @GET("bpp/user/checkVersionEx")
-    Call<Void> checkVersionEmpty();
-
-    @GET("bpp/user/checkVersionEx")
-    Observable<ApiResponse<Version>> checkVersion();
+    @GET("bpp/user/checkVersionEx?version=0.1&platform=android&locale=us&language=he")
+    Call<ApiResponse<Version>> checkVersion();
 
     @POST("bpp/user/save")
     Observable<SizerUser> saveUser(@Query("user") SizerUser user);
