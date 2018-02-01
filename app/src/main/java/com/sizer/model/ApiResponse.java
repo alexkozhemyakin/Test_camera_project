@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class ApiResponse<T> {
     @SerializedName("resultCode")
     private String resultCode;
-    @SerializedName("Message")
+    @SerializedName("message")
     private String message;
     @SerializedName("dataType")
     private String dataType;
-    @SerializedName("Data")
+    @SerializedName("data")
     private T data;
 
     public String getResultCode() {
