@@ -104,7 +104,7 @@ public class VideoActivity extends BaseActivity {
                     tasks.add(task);
                 }
             });
-            if (frameCnt > 9) {
+            if (frameCnt > 3) {
                 cameraView.stopVideo();
                 startActivity(new Intent(VideoActivity.this, RegisterActivity.class));
                 finish();

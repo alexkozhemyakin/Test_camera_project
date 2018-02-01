@@ -1,44 +1,26 @@
 package com.sizer.ui.fragment;
 
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import com.sizer.App;
 import com.sizer.R;
+import com.sizer.data.IRemoteRepository;
+import com.sizer.model.ApiResponse;
 import com.sizer.model.entity.Gender;
 import com.sizer.model.entity.SizerUser;
 import com.sizer.ui.activity.BaseActivity;
-import com.wonderkiln.camerakit.CameraView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterAccountFragment extends BaseFragment {
-
-    @OnClick(R.id.btn_save)
-    void callGetStarted() {
-        BaseActivity activity = (BaseActivity) getActivity();
-        if (!pass.getText().toString().equals(passConfirm.getText().toString())) {
-            activity.showMessage("Password doesn't match confirm password.");
-            return;
-        }
-        if (accountName.getText().toString().isEmpty()) {
-            activity.showMessage("Empty name.");
-            return;
-        }
-        if (accountEmail.getText().toString().isEmpty()) {
-            activity.showMessage("Empty email.");
-            return;
-        }
-        SizerUser sizerUser = new SizerUser();
-        sizerUser.setName(accountName.getText().toString());
-        sizerUser.setPassword(pass.getText().toString());
-        sizerUser.setEmail(accountEmail.getText().toString());
-        sizerUser.setGender(
-                genderGroup.getCheckedRadioButtonId() == R.id.radioMale ?
-                Gender.MALE : Gender.FEMALE);
-
-        activity.showMessage("Not implemented yet.");
-    }
 
     @BindView(R.id.account_name_tv)
     EditText accountName;
@@ -51,6 +33,58 @@ public class RegisterAccountFragment extends BaseFragment {
 
     @BindView(R.id.radioSex)
     RadioGroup genderGroup;
+
+    private IRemoteRepository remoteRepository = App.getAppComponent().remoteDataRepository();
+
+
+    @OnClick(R.id.btn_save)
+    void callGetStarted() {
+        final BaseActivity activity = (BaseActivity) getActivity();
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        if (!pass.getText().toString().equals(passConfirm.getText().toString())) {
+            activity.showMessage("Password doesn't match confirm password.");
+            return;
+        }
+        if (accountName.getText().toString().isEmpty()) {
+            activity.showMessage("Empty name.");
+            return;
+        }
+        if (accountEmail.getText().toString().isEmpty()) {
+            activity.showMessage("Empty email.");
+            return;
+        }
+
+        SizerUser sizerUser = new SizerUser();
+        sizerUser.setName(accountName.getText().toString());
+        sizerUser.setPassword(pass.getText().toString());
+        sizerUser.setEmail(accountEmail.getText().toString());
+        sizerUser.setGender(
+                genderGroup.getCheckedRadioButtonId() == R.id.radioMale ?
+                        Gender.MALE : Gender.FEMALE);
+
+        remoteRepository.saveUser(sizerUser).enqueue(new Callback<ApiResponse<SizerUser>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<SizerUser>> call, Response<ApiResponse<SizerUser>> response) {
+                ApiResponse<SizerUser> body = response.body();
+                if (body.getResultCode().equalsIgnoreCase("ERROR")) {
+                    activity.showMessage(body.getMessage());
+                } else {
+                    activity.showMessage("Saved Successfully.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<SizerUser>> call, Throwable t) {
+                activity.showMessage("Saved Failed.");
+            }
+        });
+
+
+    }
 
     @Override
     int getLayoutResource() {

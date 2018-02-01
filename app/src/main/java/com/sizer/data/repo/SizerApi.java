@@ -27,7 +27,10 @@ public interface SizerApi {
     Call<ApiResponse<Version>> checkVersion();
 
     @POST("bpp/user/save")
-    Observable<SizerUser> saveUser(@Query("user") SizerUser user);
+    Call<ApiResponse<SizerUser>> saveUser(@Query("name") String name,
+                                          @Query("email") String email,
+                                          @Query("password") String password,
+                                          @Query("gender") String gender);
 
     @Multipart
     @POST("bp/images/postscan")
