@@ -58,7 +58,7 @@ public class SplashActivity extends BaseActivity {
         lyt.removeAllViews();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.fade_out, R.anim.fade_in);
+//        ft.setCustomAnimations(R.anim.fade_out, R.anim.fade_in);
 
         ft.replace(R.id.frame_splash, fragment);
         ft.commit();
