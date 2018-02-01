@@ -2,12 +2,9 @@ package com.sizer.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 
 import com.devdoo.rxpermissions.RxPermission;
 import com.sizer.App;
@@ -21,15 +18,11 @@ import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Subscription;
 
 public class VideoActivity extends BaseActivity {
@@ -55,7 +48,8 @@ public class VideoActivity extends BaseActivity {
 
         localRepository = App.getAppComponent().localDataRepository();
         frameCnt = 0;
-        ButterKnife.bind(this);
+
+        cameraView.setFacing(CameraKit.Constants.FACING_FRONT);
         subscription =
                 RxPermission.with(getFragmentManager())
                         .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
