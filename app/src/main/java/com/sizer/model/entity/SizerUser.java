@@ -151,7 +151,7 @@ public class SizerUser {
         Map<String, String> mappedUser = new HashMap<>();
 
         mappedUser.put("email", this.email);
-        mappedUser.put("password", this.email);
+        mappedUser.put("password", this.password);
         mappedUser.put("gender", this.gender.getGender());
         mappedUser.put("device", this.device);
         mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
@@ -161,6 +161,4 @@ public class SizerUser {
 
         return mappedUser;
     }
-
-    ;
 }

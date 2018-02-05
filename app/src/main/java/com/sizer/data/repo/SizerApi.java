@@ -29,7 +29,6 @@ public interface SizerApi {
     Observable<SizerUser> saveUser(@Query("user") SizerUser user);
 
 
-
     @POST("bpp/user/save")
     Observable<SizerUser> saveUserByEntity(
         @Field("email") String email,
@@ -51,7 +50,6 @@ public interface SizerApi {
 
     @POST("bpp/user/save")
     Observable<SizerUser> saveUserByEntity(@Body SizerUser user);
-
 
 
     @Multipart
