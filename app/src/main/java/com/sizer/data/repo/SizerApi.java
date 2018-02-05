@@ -40,6 +40,7 @@ public interface SizerApi {
         @Field("promotionCode") String promotionCode,
         @Field("measurmentsJson") String measurmentsJson);
 
+
     @FormUrlEncoded
     @POST("bpp/user/save")
     Observable<SizerUser> saveUserByMap(@FieldMap Map<String, String> user);
