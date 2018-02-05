@@ -1,6 +1,6 @@
 package com.sizer.data.repo;
 
-import com.sizer.data.IRemoteRepository;
+import  com.sizer.data.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;

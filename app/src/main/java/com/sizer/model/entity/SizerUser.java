@@ -1,15 +1,48 @@
 package com.sizer.model.entity;
 
 
+import android.annotation.SuppressLint;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SizerUser {
+
+    @SerializedName("email")
+    @Expose
     private String email;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("name")
+    @Expose
     private String name;
+
+    @SerializedName("gender")
+    @Expose
     private Gender gender;
+
+    @SerializedName("device")
+    @Expose
     private String device;
-    private Integer measurmentUnit;
+
+    @SerializedName("measurementUnit")
+    @Expose
+    private Integer measurementUnit;
+
+    @SerializedName("promotionCode")
+    @Expose
     private String promotionCode = "DEBUG_MODE";
+
+    @SerializedName("manualFolder")
+    @Expose
     private String manualFolder;
+
+    @SerializedName("measurmentsJson")
+    @Expose
     private String measurmentsJson;
 
     public String getEmail() {
@@ -36,12 +69,19 @@ public class SizerUser {
         this.name = name;
     }
 
-    public Gender getGender() {
-        return gender;
+    public String getGender() {
+        return gender.getGender();
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setGender(String gender) {
+        switch (gender) {
+            case "male":
+                this.gender = Gender.MALE;
+                break;
+            case "female":
+                this.gender = Gender.FEMALE;
+                break;
+        }
     }
 
     public String getDevice() {
@@ -53,11 +93,11 @@ public class SizerUser {
     }
 
     public Integer getMeasurmentUnit() {
-        return measurmentUnit;
+        return measurementUnit;
     }
 
     public void setMeasurmentUnit(Integer measurmentUnit) {
-        this.measurmentUnit = measurmentUnit;
+        this.measurementUnit = measurmentUnit;
     }
 
     public String getPromotionCode() {
@@ -83,4 +123,44 @@ public class SizerUser {
     public void setMeasurmentsJson(String measurmentsJson) {
         this.measurmentsJson = measurmentsJson;
     }
+
+    @SuppressLint("DefaultLocale")
+    public String getUrlRequest() {
+
+        return String.format("email=%s"
+                + "&password=%s"
+                + "&name=%s"
+                + "&gender=%s"
+                + "&device=%s"
+                + "&measurementUnit=%d"
+                + "&promotionCode=%s"
+                + "&manualFolder=%s"
+                + "&measurmentsJson=%s",
+            email,
+            password,
+            name,
+            gender.getGender(),
+            device,
+            measurementUnit,
+            promotionCode,
+            manualFolder,
+            measurementUnit);
+    }
+
+    public Map<String, String> getMappedUser() {
+        Map<String, String> mappedUser = new HashMap<>();
+
+        mappedUser.put("email", this.email);
+        mappedUser.put("password", this.email);
+        mappedUser.put("gender", this.gender.getGender());
+        mappedUser.put("device", this.device);
+        mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
+        mappedUser.put("promotionCode", this.promotionCode);
+        mappedUser.put("manualFolder", this.manualFolder);
+        mappedUser.put("measurmentsJson", this.measurmentsJson);
+
+        return mappedUser;
+    }
+
+    ;
 }
