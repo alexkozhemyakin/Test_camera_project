@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sizer.ui.activity.BaseActivity;
+
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
@@ -19,6 +21,10 @@ public abstract class BaseFragment extends Fragment {
         View view = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
     }
 
 }

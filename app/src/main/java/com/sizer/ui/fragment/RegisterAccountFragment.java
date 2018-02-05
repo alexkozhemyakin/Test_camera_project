@@ -1,9 +1,13 @@
 package com.sizer.ui.fragment;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.sizer.App;
@@ -39,7 +43,7 @@ public class RegisterAccountFragment extends BaseFragment {
 
     @OnClick(R.id.btn_save)
     void callGetStarted() {
-        final BaseActivity activity = (BaseActivity) getActivity();
+        final BaseActivity activity = getBaseActivity();
         View view = activity.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -72,14 +76,17 @@ public class RegisterAccountFragment extends BaseFragment {
                 ApiResponse<SizerUser> body = response.body();
                 if (body.getResultCode().equalsIgnoreCase("ERROR")) {
                     activity.showMessage(body.getMessage());
+                    showDoneFragment();
                 } else {
                     activity.showMessage("Saved Successfully.");
+                    showDoneFragment();
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<SizerUser>> call, Throwable t) {
                 activity.showMessage("Saved Failed.");
+                showDoneFragment();
             }
         });
 
@@ -89,5 +96,16 @@ public class RegisterAccountFragment extends BaseFragment {
     @Override
     int getLayoutResource() {
         return R.layout.account_register;
+    }
+
+    private void showDoneFragment() {
+        LinearLayout lyt = (LinearLayout) getActivity().findViewById(R.id.registerAccount_lt);
+        lyt.removeAllViews();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+
+        ft.replace(R.id.registerAccount_lt, new RegisterAccountSuccessFragment());
+        ft.commit();
+
     }
 }
