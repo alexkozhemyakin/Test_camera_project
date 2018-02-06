@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-
+import android.util.Log;
+import butterknife.BindView;
 import com.devdoo.rxpermissions.RxPermission;
 import com.sizer.App;
 import com.sizer.R;
@@ -13,21 +14,22 @@ import com.sizer.data.ILocalRepository;
 import com.sizer.model.ScanData;
 import com.sizer.ui.activity.video.SavePhotoTask;
 import com.wonderkiln.camerakit.CameraKit;
+import com.wonderkiln.camerakit.CameraKit.Constants;
 import com.wonderkiln.camerakit.CameraKitEventCallback;
 import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 import rx.Subscription;
 
 public class VideoActivity extends BaseActivity {
 
+    private final String LOG_TAG = "LOG_TAG";
+
     private final int delayMillis = 2000;
+    private final int captureTime = 9000;
     @BindView(R.id.camera)
     CameraView cameraView;
     List<SavePhotoTask> tasks = new ArrayList<>();
@@ -51,19 +53,20 @@ public class VideoActivity extends BaseActivity {
 
         cameraView.setFacing(CameraKit.Constants.FACING_FRONT);
         subscription =
-                RxPermission.with(getFragmentManager())
-                        .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .subscribe(granted -> {
-                            if (granted) {
-                                if (!cameraView.isStarted()) {
-//                                    cameraView.setVideoQuality(CameraKit.Constants.VIDEO_QUALITY_480P);
-                                    cameraView.setJpegQuality(100);
-                                    cameraView.setFocus(CameraKit.Constants.FOCUS_OFF);
-                                    cameraView.postDelayed(capturePreview, 1000);
-                                    //TODO: or capture captureVideo() call to capture video
-                                }
-                            }
-                        });
+            RxPermission.with(getFragmentManager())
+                .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {
+                        if (!cameraView.isStarted()) {
+                            cameraView.setVideoQuality(Constants.VIDEO_QUALITY_720P);
+                            cameraView.setJpegQuality(50);
+                            cameraView.setFocus(CameraKit.Constants.FOCUS_OFF);
+                            cameraView.postDelayed(capturePreview, 1000);
+                            //TODO: or capture captureVideo() call to capture video
+                        }
+                    }
+                });
 
     }
 
@@ -106,6 +109,7 @@ public class VideoActivity extends BaseActivity {
             });
             if (frameCnt > 3) {
                 cameraView.stopVideo();
+                Log.d(LOG_TAG, "run: Stop capture images");
                 startActivity(new Intent(VideoActivity.this, RegisterActivity.class));
                 finish();
             } else {
@@ -116,7 +120,8 @@ public class VideoActivity extends BaseActivity {
     };
 
     private void captureVideo() {
-        String str = localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(new ScanData()).getScanId() + File.separator;
+        String str = localRepository.getUniqueDeviceId() + File.separator + localRepository
+            .setScanData(new ScanData()).getScanId() + File.separator;
         File scanPath = new File(Environment.getExternalStorageDirectory(), str);
         File photo = new File(scanPath, "capture.mpeg");
 

@@ -4,13 +4,9 @@ import com.sizer.data.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
-
-import org.json.JSONObject;
-
-import java.util.Map;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -35,7 +31,13 @@ public class RemoteDataRepository implements IRemoteRepository {
     }
 
     @Override
-    public Observable<ApiResponse<JSONObject>> uploadScan(MultipartBody.Part image, String imageId, String userId, String scanId) {
+    public Observable<ApiResponse<JSONObject>> uploadScan(MultipartBody.Part image, String imageId,
+        String userId, String scanId) {
         return sizerApi.uploadScan(image, imageId, userId, scanId);
+    }
+
+    @Override
+    public Observable<SizerUser> saveUserByMap(SizerUser user) {
+        return sizerApi.saveUserByMap(user.getMappedUser());
     }
 }
