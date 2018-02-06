@@ -42,18 +42,23 @@ public class SplashActivity extends BaseActivity {
         v = findViewById(android.R.id.content);
         remoteRepository = App.getAppComponent().remoteDataRepository();
 
-        int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
-                ActivityCompat.requestPermissions(
-                        this, new String[]{Manifest.permission.INTERNET}, 7);
-            }
-        } else {
+        if (isInternetPermissionGranted() && isCameraPermissionGranted() && isWriteExternalStoragePermissionGranted()) {
             fetchVersion();
+        } else {
+//            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
+            //TODO move CAMERA and WRITE_EXTERNAL_STORAGE to Fragment before button click?
+            String[] permissions = {
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST);
+//            }
         }
     }
 
     public void setGettingStarted() {
+        //TODO use butterknife
         FrameLayout lyt = (FrameLayout) findViewById(R.id.frame_splash);
         lyt.removeAllViews();
         FragmentManager manager = getSupportFragmentManager();
@@ -68,9 +73,9 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 7) {
+        if (requestCode == PERMISSIONS_REQUEST) {
             // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (isInternetPermissionGranted()) {
                 fetchVersion();
             }
         }

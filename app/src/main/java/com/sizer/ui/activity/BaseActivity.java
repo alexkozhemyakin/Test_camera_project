@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    protected static final int PERMISSIONS_REQUEST = 7;
 
     abstract int getContentViewLayoutResource();
 
@@ -29,5 +32,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public boolean isWriteExternalStoragePermissionGranted() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean isInternetPermissionGranted() {
+        return ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED;
     }
 }
