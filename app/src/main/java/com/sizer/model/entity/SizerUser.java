@@ -1,15 +1,51 @@
 package com.sizer.model.entity;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SizerUser {
+
+    @SerializedName("email")
+    @Expose
     private String email;
+
+    @SerializedName("height")
+    @Expose
+    private Double height;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("name")
+    @Expose
     private String name;
+
+    @SerializedName("gender")
+    @Expose
     private Gender gender;
-    private String device;
-    private Integer measurmentUnit;
+
+    @SerializedName("device")
+    @Expose
+    private String device = "Android";
+
+    @SerializedName("measurementUnit")
+    @Expose
+    private String measurementUnit = "cm";
+
+    @SerializedName("promotionCode")
+    @Expose
     private String promotionCode = "DEBUG_MODE";
+
+    @SerializedName("manualFolder")
+    @Expose
     private String manualFolder;
+
+    @SerializedName("measurmentsJson")
+    @Expose
     private String measurmentsJson;
 
     public String getEmail() {
@@ -36,13 +72,14 @@ public class SizerUser {
         this.name = name;
     }
 
-    public Gender getGender() {
-        return gender;
+    public String getGender() {
+        return gender.name().toLowerCase();
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
 
     public String getDevice() {
         return device;
@@ -52,12 +89,12 @@ public class SizerUser {
         this.device = device;
     }
 
-    public Integer getMeasurmentUnit() {
-        return measurmentUnit;
+    public String getMeasurmentUnit() {
+        return measurementUnit;
     }
 
-    public void setMeasurmentUnit(Integer measurmentUnit) {
-        this.measurmentUnit = measurmentUnit;
+    public void setMeasurmentUnit(String measurmentUnit) {
+        this.measurementUnit = measurmentUnit;
     }
 
     public String getPromotionCode() {
@@ -82,5 +119,33 @@ public class SizerUser {
 
     public void setMeasurmentsJson(String measurmentsJson) {
         this.measurmentsJson = measurmentsJson;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getHeight() {
+
+        return height;
+    }
+
+
+    public Map<String, String> getMappedUser() {
+        Map<String, String> mappedUser = new HashMap<>();
+
+        mappedUser.put("email", String.valueOf(this.email));
+        mappedUser.put("name", this.name);
+        mappedUser.put("password", String.valueOf(this.password));
+        mappedUser.put("gender", String.valueOf(this.gender.name().toLowerCase()));
+        mappedUser.put("device", String.valueOf(this.device));
+        mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
+        mappedUser.put("promotionCode", String.valueOf(this.promotionCode));
+        mappedUser.put("height", String.valueOf(this.height));
+        /*
+        mappedUser.put("manualFolder", this.manualFolder);
+        mappedUser.put("measurmentsJson", this.measurmentsJson);*/
+
+        return mappedUser;
     }
 }

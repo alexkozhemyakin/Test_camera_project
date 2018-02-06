@@ -8,8 +8,8 @@
         android:id="@+id/registerAccount_lt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,9 +22,9 @@
             <EditText
                 android:id="@+id/account_name_tv"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_weight="1"
+                android:inputType="text"/>
 
         </LinearLayout>
         <LinearLayout
@@ -34,13 +34,13 @@
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="@string/email" />
+                android:text="@string/email"/>
             <EditText
                 android:id="@+id/account_email_et"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,29 +50,15 @@
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="@string/password" />
+                android:text="@string/password"/>
             <EditText
                 android:id="@+id/account_pass_et"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="@string/confirm_password" />
-            <EditText
-                android:id="@+id/account_pass_confirm_et"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,26 +66,42 @@
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="@string/gender" />
+                android:text="@string/height"/>
+            <EditText
+                android:id="@+id/account_height_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"/>
             <RadioGroup
                 android:id="@+id/radioSex"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radioMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/radio_male"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:text="@string/radio_male"/>
                 <RadioButton
                     android:id="@+id/radioFemale"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/radio_female" />
+                    android:layout_weight="1"
+                    android:text="@string/radio_female"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -108,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="@string/save" />
+            android:text="@string/save"/>
     </LinearLayout>
 
 </FrameLayout>
