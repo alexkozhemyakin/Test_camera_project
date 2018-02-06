@@ -1,56 +1,41 @@
 package com.sizer.ui.activity.video;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+
+import com.sizer.App;
 import com.sizer.data.ILocalRepository;
 import com.sizer.model.ScanData;
-import com.wonderkiln.camerakit.CameraKitImage;
-import java.io.ByteArrayOutputStream;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class SavePhotoTask extends AsyncTask<CameraKitImage, String, String> {
+class SavePhotoTask extends AsyncTask<byte[], String, String> {
 
-    private final int width = 480;
-    private final int height = 640;
+    public static final String TAG = LoopPhotoProcessor.TAG;
 
-    private ILocalRepository localRepository;
-    private int frameCnt;
+    private int currentPhotoIndex;
 
-    public SavePhotoTask(ILocalRepository localRepository, int frameCnt) {
-        this.localRepository = localRepository;
-        this.frameCnt = frameCnt;
+    SavePhotoTask(int currentPhotoIndex) {
+        this.currentPhotoIndex = currentPhotoIndex;
+    }
+
+    private ILocalRepository getLocalRepository() {
+        return App.getAppComponent().localDataRepository();
     }
 
     @Override
-    public String doInBackground(CameraKitImage... cameraKitImageArr) {
-        CameraKitImage cameraKitImage = cameraKitImageArr[0];
-        Bitmap bmp = cameraKitImage.getBitmap().copy(Bitmap.Config.RGB_565, true);
-//        bmp.setWidth(width);
-//        bmp.setHeight(height);
-
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        bmp = null;
-        byte[] byteArray = stream.toByteArray();
-
-        try {
-            stream.close();
-        } catch (IOException e) {
-            Log.e("Sizer", "Exception in doInBackground", e);
-        }
-
-        String photoPath =
-            localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(
+    public String doInBackground(byte[]... jpeg) {
+        byte[] byteArray = jpeg[0];
+        ILocalRepository localRepository = getLocalRepository();
+        String photoPath = localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(
                 new ScanData()).getScanId() + File.separator;
         File scanPath = new File(Environment.getExternalStorageDirectory(), photoPath);
-        File photo = new File(scanPath, String.format("%06d", frameCnt) + ".jpg");
+        File photo = new File(scanPath, String.format("%06d", currentPhotoIndex) + ".jpg");
 
-        Log.d("Photo", "photo: " + photo.getPath() + " scanPath: " + scanPath);
+        Log.d(TAG, "photo: " + photo.getPath() + " scanPath: " + scanPath);
 
         scanPath.mkdirs();
 
@@ -59,9 +44,14 @@ public class SavePhotoTask extends AsyncTask<CameraKitImage, String, String> {
             fos.write(byteArray);
             fos.close();
         } catch (IOException e) {
-            Log.e("Sizer", "Exception in doInBackground", e);
+            Log.e(TAG, "Exception in doInBackground", e);
         }
 
         return (null);
+    }
+
+    public boolean isAlive() {
+        AsyncTask.Status currentStatus = getStatus();
+        return currentStatus == AsyncTask.Status.RUNNING || currentStatus == AsyncTask.Status.PENDING;
     }
 }
