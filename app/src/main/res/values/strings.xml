@@ -16,4 +16,7 @@
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
     <string name="done">Done</string>
+    <string name="app_version">1.0</string>
+    <string name="height">Height</string>
+
 </resources>
