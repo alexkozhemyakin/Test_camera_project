@@ -68,7 +68,7 @@ public class RegisterAccountFragment extends BaseFragment {
         sizerUser.setEmail(accountEmail.getText().toString());
         sizerUser.setGender(
                 genderGroup.getCheckedRadioButtonId() == R.id.radioMale ?
-                        Gender.MALE : Gender.FEMALE);
+                        Gender.MALE.name() : Gender.FEMALE.name());
 
         remoteRepository.saveUser(sizerUser).enqueue(new Callback<ApiResponse<SizerUser>>() {
             @Override
