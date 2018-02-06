@@ -6,10 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.sizer.ui.activity.VideoActivity">
 
-    <com.wonderkiln.camerakit.CameraView
+    <!--<com.wonderkiln.camerakit.CameraView-->
+        <!--android:id="@+id/camera"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:adjustViewBounds="true" />-->
+
+    <com.otaliastudios.cameraview.CameraView
         android:id="@+id/camera"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true" />
+        android:keepScreenOn="true"
+        app:cameraAudio="off"
+        app:cameraPlaySounds="false"
+        app:cameraCropOutput="false"
+        app:cameraPictureSizeMaxHeight="640"
+        app:cameraPictureSizeMaxWidth="480"
+        app:cameraVideoQuality="max480p"
+        app:cameraFacing="front"
+        app:cameraJpegQuality="100"
+        app:cameraSessionType="picture"
+        app:cameraWhiteBalance="auto" />
 
 </RelativeLayout>
