@@ -37,4 +37,7 @@ public interface IRemoteRepository {
      */
     Observable<ApiResponse<JSONObject>> uploadScan(MultipartBody.Part image, String imageId,
                                                    String userId, String scanId);
+
+    Observable<SizerUser> saveUserByMap(SizerUser user);
+
 }

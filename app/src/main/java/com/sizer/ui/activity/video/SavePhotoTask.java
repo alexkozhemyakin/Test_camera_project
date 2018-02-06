@@ -4,11 +4,9 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-
 import com.sizer.data.ILocalRepository;
 import com.sizer.model.ScanData;
 import com.wonderkiln.camerakit.CameraKitImage;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +32,7 @@ public class SavePhotoTask extends AsyncTask<CameraKitImage, String, String> {
 //        bmp.setWidth(width);
 //        bmp.setHeight(height);
 
+
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bmp = null;
@@ -45,7 +44,8 @@ public class SavePhotoTask extends AsyncTask<CameraKitImage, String, String> {
             Log.e("Sizer", "Exception in doInBackground", e);
         }
 
-        String photoPath = localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(
+        String photoPath =
+            localRepository.getUniqueDeviceId() + File.separator + localRepository.setScanData(
                 new ScanData()).getScanId() + File.separator;
         File scanPath = new File(Environment.getExternalStorageDirectory(), photoPath);
         File photo = new File(scanPath, String.format("%06d", frameCnt) + ".jpg");
