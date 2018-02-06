@@ -2,15 +2,12 @@ package com.sizer.di.module;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sizer.util.NetworkUtil;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
+
     @NonNull
     private String BASE_URL;
 
@@ -29,6 +27,7 @@ public class NetModule {
 
     /**
      * Init Net Module
+     *
      * @param base_url base REST url
      * @param useCache flag for cache
      */
@@ -39,6 +38,7 @@ public class NetModule {
 
     /**
      * Provide cache
+     *
      * @param context context for getCacheDir
      * @return Cache
      */
@@ -51,6 +51,7 @@ public class NetModule {
 
     /**
      * Provide GSON
+     *
      * @return Gson obj
      */
     @Provides
@@ -61,6 +62,7 @@ public class NetModule {
 
     /**
      * Provide OkHttpClient with interceptors
+     *
      * @param cache cache obj
      * @param context context
      * @return ok http client
@@ -71,17 +73,22 @@ public class NetModule {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-        if(useCache) {
+
+        client.interceptors().add(interceptor);
+
+        if (useCache) {
             client.cache(cache);
             client.addNetworkInterceptor(chain -> {
                 Response originalResponse = chain.proceed(chain.request());
                 String cacheControl = originalResponse.header("Cache-Control");
 
-                if (cacheControl == null || cacheControl.contains("no-store") || cacheControl.contains("no-cache") ||
-                        cacheControl.contains("must-revalidate") || cacheControl.contains("max-age=0")) {
+                if (cacheControl == null || cacheControl.contains("no-store") || cacheControl
+                    .contains("no-cache") ||
+                    cacheControl.contains("must-revalidate") || cacheControl
+                    .contains("max-age=0")) {
                     return originalResponse.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + 5000)
-                            .build();
+                        .header("Cache-Control", "public, max-age=" + 5000)
+                        .build();
                 } else {
                     return originalResponse;
                 }
@@ -93,9 +100,9 @@ public class NetModule {
 
                     //int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
                     request = request.newBuilder()
-                            .removeHeader("Pragma")
-                            .header("Cache-Control", "public, only-if-cached")
-                            .build();
+                        .removeHeader("Pragma")
+                        .header("Cache-Control", "public, only-if-cached")
+                        .build();
                 }
 
                 return chain.proceed(request);
@@ -107,6 +114,7 @@ public class NetModule {
 
     /**
      * Provide inited retrofit object
+     *
      * @param gson gson obj
      * @param okHttpClient okhttp client
      * @return retrofit instance
@@ -115,10 +123,10 @@ public class NetModule {
     @Singleton
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(BASE_URL)
-                .client(okHttpClient)
-                .build();
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .build();
     }
 }

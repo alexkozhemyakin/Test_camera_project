@@ -17,7 +17,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SizerApi {
@@ -27,9 +26,14 @@ public interface SizerApi {
 
     @POST("bpp/user/save")
     Call<ApiResponse<SizerUser>> saveUser(@Query("name") String name,
-                                          @Query("email") String email,
-                                          @Query("password") String password,
-                                          @Query("gender") String gender);
+        @Query("email") String email,
+        @Query("password") String password,
+        @Query("gender") String gender);
+
+
+    @POST("bpp/user/save")
+    Call<ApiResponse<SizerUser>> saveFullUser(@QueryMap Map<String, String> mappedUser);
+
 
 
     @POST("bpp/user/save")
