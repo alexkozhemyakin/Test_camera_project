@@ -19,7 +19,7 @@ import rx.Subscription;
 public class VideoActivity extends BaseActivity {
 
     private final int delayMillis = 1000;
-    private final int targetPhotoAmount = 60;
+    private final int targetPhotoAmount = 2;
 
     @BindView(R.id.camera)
     CameraView cameraView;
@@ -63,20 +63,7 @@ public class VideoActivity extends BaseActivity {
 //                    MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 //        }
 //
-
         cameraView.addCameraListener(loopPhotoProcessor);
-        subscription = RxPermission.with(getFragmentManager())
-                .request(Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(granted -> {
-                    Log.d(LoopPhotoProcessor.TAG, "granted: " + granted);
-                    if (granted) {
-                        loopPhotoProcessor.startProcessPhoto();
-                    } else {
-                        VideoActivity.this.finish(); //go back
-                    }
-                });
-
     }
 
     @Override
