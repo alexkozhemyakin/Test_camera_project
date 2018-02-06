@@ -1,7 +1,6 @@
 package com.sizer.model.entity;
 
 
-import android.annotation.SuppressLint;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
@@ -12,6 +11,10 @@ public class SizerUser {
     @SerializedName("email")
     @Expose
     private String email;
+
+    @SerializedName("height")
+    @Expose
+    private Double height;
 
     @SerializedName("password")
     @Expose
@@ -27,11 +30,11 @@ public class SizerUser {
 
     @SerializedName("device")
     @Expose
-    private String device;
+    private String device = "Android";
 
     @SerializedName("measurementUnit")
     @Expose
-    private Integer measurementUnit;
+    private String measurementUnit = "cm";
 
     @SerializedName("promotionCode")
     @Expose
@@ -70,19 +73,13 @@ public class SizerUser {
     }
 
     public String getGender() {
-        return gender.getGender();
+        return gender.name().toLowerCase();
     }
 
-    public void setGender(String gender) {
-        switch (gender) {
-            case "male":
-                this.gender = Gender.MALE;
-                break;
-            case "female":
-                this.gender = Gender.FEMALE;
-                break;
-        }
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
+
 
     public String getDevice() {
         return device;
@@ -92,11 +89,11 @@ public class SizerUser {
         this.device = device;
     }
 
-    public Integer getMeasurmentUnit() {
+    public String getMeasurmentUnit() {
         return measurementUnit;
     }
 
-    public void setMeasurmentUnit(Integer measurmentUnit) {
+    public void setMeasurmentUnit(String measurmentUnit) {
         this.measurementUnit = measurmentUnit;
     }
 
@@ -124,40 +121,30 @@ public class SizerUser {
         this.measurmentsJson = measurmentsJson;
     }
 
-    @SuppressLint("DefaultLocale")
-    public String getUrlRequest() {
-
-        return String.format("email=%s"
-                + "&password=%s"
-                + "&name=%s"
-                + "&gender=%s"
-                + "&device=%s"
-                + "&measurementUnit=%d"
-                + "&promotionCode=%s"
-                + "&manualFolder=%s"
-                + "&measurmentsJson=%s",
-            email,
-            password,
-            name,
-            gender.getGender(),
-            device,
-            measurementUnit,
-            promotionCode,
-            manualFolder,
-            measurementUnit);
+    public void setHeight(Double height) {
+        this.height = height;
     }
+
+    public Double getHeight() {
+
+        return height;
+    }
+
 
     public Map<String, String> getMappedUser() {
         Map<String, String> mappedUser = new HashMap<>();
 
-        mappedUser.put("email", this.email);
-        mappedUser.put("password", this.password);
-        mappedUser.put("gender", this.gender.getGender());
-        mappedUser.put("device", this.device);
+        mappedUser.put("email", String.valueOf(this.email));
+        mappedUser.put("name", this.name);
+        mappedUser.put("password", String.valueOf(this.password));
+        mappedUser.put("gender", String.valueOf(this.gender.name().toLowerCase()));
+        mappedUser.put("device", String.valueOf(this.device));
         mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
-        mappedUser.put("promotionCode", this.promotionCode);
+        mappedUser.put("promotionCode", String.valueOf(this.promotionCode));
+        mappedUser.put("height", String.valueOf(this.height));
+        /*
         mappedUser.put("manualFolder", this.manualFolder);
-        mappedUser.put("measurmentsJson", this.measurmentsJson);
+        mappedUser.put("measurmentsJson", this.measurmentsJson);*/
 
         return mappedUser;
     }
