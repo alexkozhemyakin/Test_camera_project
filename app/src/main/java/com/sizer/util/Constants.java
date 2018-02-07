@@ -15,6 +15,7 @@ public class Constants {
     public static final String PREF_USER_NAME = "USER_NAME";
     public static final String PREF_USER_ID = "USER_ID";
     public static final String PREF_USER_GENDER = "USER_GENDER";
+    public static final String PREF_USER_MANUAL_FOLDER = "PREF_USER_MANUAL_FOLDER";
     public static final String PREF_DEVICE_ID = "DEVICE_ID";
 
 }

@@ -27,7 +27,7 @@ public interface IRemoteRepository {
     /**
      * Create/save user
      */
-    Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password, String gender, String height);
+    Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password, String gender, String height, String manualFolder);
 
     /**
      * Upload scan image

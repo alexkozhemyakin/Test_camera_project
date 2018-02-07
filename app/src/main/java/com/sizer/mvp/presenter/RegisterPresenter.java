@@ -1,6 +1,7 @@
 package com.sizer.mvp.presenter;
 
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -46,7 +47,7 @@ public class RegisterPresenter extends MvpPresenter<RegisterView> {
     public void callRegister(String email, String password,
                              String name, String height, String gender) {
         getViewState().showLoading(true);
-        remoteRepository.saveUserRx(name, email, password, gender, height)
+        remoteRepository.saveUserRx(name, email, password, gender, height, localRepository.getManualFolder())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ApiResponse<SizerUser>>() {

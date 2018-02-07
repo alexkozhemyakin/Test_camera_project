@@ -35,15 +35,15 @@ public interface SizerApi {
 
     @POST("bpp/user/save")
     Observable<ApiResponse<SizerUser>> saveUserRx(@Query("name") String name,
-                                          @Query("email") String email,
-                                          @Query("password") String password,
-                                          @Query("gender") String gender,
-                                                  @Query("height") String height);
+        @Query("email") String email,
+        @Query("password") String password,
+        @Query("gender") String gender,
+        @Query("height") String height,
+        @Query("manualFolder") String manualFolder);
 
 
     @POST("bpp/user/save")
     Call<ApiResponse<SizerUser>> saveFullUser(@QueryMap Map<String, String> mappedUser);
-
 
 
     @POST("bpp/user/save")

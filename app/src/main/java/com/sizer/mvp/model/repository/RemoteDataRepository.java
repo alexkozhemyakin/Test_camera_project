@@ -33,9 +33,10 @@ public class RemoteDataRepository implements IRemoteRepository {
     }
 
     @Override
-    public Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password, String gender, String height) {
+    public Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password,
+        String gender, String height, String manualFolder) {
         return sizerApi
-                .saveUserRx(name, email,password,gender,height);
+                .saveUserRx(name, email,password,gender,height, manualFolder);
     }
 
     @Override

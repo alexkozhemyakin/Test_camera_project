@@ -1,14 +1,13 @@
 package com.sizer.model.entity;
 
 
-import android.util.Size;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SizerUser {
+
     @SerializedName("id")
     @Expose
     private String userID;
@@ -53,9 +52,17 @@ public class SizerUser {
     @Expose
     private String measurmentsJson;
 
-    public SizerUser() {}
+    public SizerUser() {
+    }
 
     public SizerUser(String userId, String email, String name, String gender) {
+        this.userID = userId;
+        this.email = email;
+        this.name = name;
+        this.gender = gender;
+    }
+
+    public SizerUser(String userId, String email, String name, String gender, String manualFolder) {
         this.userID = userId;
         this.email = email;
         this.name = name;
@@ -163,9 +170,8 @@ public class SizerUser {
         mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
         mappedUser.put("promotionCode", String.valueOf(this.promotionCode));
         mappedUser.put("height", String.valueOf(this.height));
-        /*
-        mappedUser.put("manualFolder", this.manualFolder);
-        mappedUser.put("measurmentsJson", this.measurmentsJson);*/
+        mappedUser.put("manualFolder", String.valueOf(this.manualFolder));
+        mappedUser.put("measurmentsJson", String.valueOf(this.measurmentsJson));
 
         return mappedUser;
     }
