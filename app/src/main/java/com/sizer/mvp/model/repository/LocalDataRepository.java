@@ -6,18 +6,21 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.sizer.model.ScanData;
 import com.sizer.model.entity.SizerUser;
 import com.sizer.mvp.model.ILocalRepository;
-import com.sizer.model.ScanData;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static com.sizer.util.Constants.*;
+import static com.sizer.util.Constants.APP_PREFERENCES;
+import static com.sizer.util.Constants.PREF_DEBUG_INFO;
+import static com.sizer.util.Constants.PREF_USER_EMAIL;
+import static com.sizer.util.Constants.PREF_USER_GENDER;
+import static com.sizer.util.Constants.PREF_USER_ID;
+import static com.sizer.util.Constants.PREF_USER_NAME;
 
 
 public class LocalDataRepository implements ILocalRepository {
