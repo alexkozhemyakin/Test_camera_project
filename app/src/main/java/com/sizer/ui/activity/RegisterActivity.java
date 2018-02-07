@@ -29,6 +29,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class RegisterActivity extends MvpAppCompatActivity implements RegisterView {
 
@@ -37,6 +39,9 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
 
     @BindView(R.id.layout_done)
     View layoutDone;
+
+    @BindView(R.id.layout_uploading)
+    View layoutUpload;
 
     @BindView(R.id.til_email)
     TextInputLayout til_email;
@@ -160,6 +165,13 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
 
     @Override
     public void onSuccess() {
+        layoutUpload.setVisibility(View.VISIBLE);
+        presenter.callUpload();
+    }
+
+    @Override
+    public void onUploaded() {
+        layoutUpload.setVisibility(View.GONE);
         layoutDone.setAlpha(0f);
         layoutDone.setVisibility(View.VISIBLE);
 
