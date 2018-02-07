@@ -1,6 +1,6 @@
-package com.sizer.data.repo;
+package com.sizer.mvp.model.repository;
 
-import com.sizer.data.IRemoteRepository;
+import com.sizer.mvp.model.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
@@ -30,6 +30,12 @@ public class RemoteDataRepository implements IRemoteRepository {
     public Call<ApiResponse<SizerUser>> saveUser(SizerUser user) {
         return sizerApi
             .saveUser(user.getName(), user.getEmail(), user.getPassword(), user.getGender());
+    }
+
+    @Override
+    public Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password, String gender, String height) {
+        return sizerApi
+                .saveUserRx(name, email,password,gender,height);
     }
 
     @Override

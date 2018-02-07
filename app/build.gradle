@@ -35,14 +35,21 @@ dependencies {
     //CAMERA
     compile 'com.otaliastudios:cameraview:1.4.1' //https://github.com/natario1/CameraView
 
+    compile 'com.google.android.gms:play-services-vision:11.8.0'
+
+    //MVP
+    compile "com.arello-mobile:moxy:${moxyVersion}"
+    compile "com.arello-mobile:moxy-app-compat:${moxyVersion}"
+    annotationProcessor "com.arello-mobile:moxy-compiler:${moxyVersion}"
+
     //DI
     compile "com.google.dagger:dagger:${daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
     compile 'javax.inject:javax.inject:1'
 
     //ButterKnife
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"

@@ -13,10 +13,11 @@ ext {
     supportLibraryVersion = '26.1.0'
     daggerVersion = '2.10'
 
-
     retrofitVersion = '2.3.0'
     okhttpVersion = '3.9.1'
 
-    butterKnifeVersion = '8.5.1'
+    butterKnifeVersion = '8.8.1'
+
+    moxyVersion = '1.5.3'
 
 }

@@ -1,4 +1,4 @@
-package com.sizer.data.repo;
+package com.sizer.mvp.model.repository;
 
 
 import com.sizer.model.ApiResponse;
@@ -31,6 +31,13 @@ public interface SizerApi {
         @Query("email") String email,
         @Query("password") String password,
         @Query("gender") String gender);
+
+    @POST("bpp/user/save")
+    Observable<ApiResponse<SizerUser>> saveUserRx(@Query("name") String name,
+                                          @Query("email") String email,
+                                          @Query("password") String password,
+                                          @Query("gender") String gender,
+                                                  @Query("height") String height);
 
 
     @POST("bpp/user/save")

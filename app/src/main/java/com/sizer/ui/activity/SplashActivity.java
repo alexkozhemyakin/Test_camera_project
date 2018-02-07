@@ -1,18 +1,17 @@
 package com.sizer.ui.activity;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.sizer.App;
 import com.sizer.R;
-import com.sizer.data.IRemoteRepository;
+import com.sizer.mvp.model.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.ui.fragment.SplashStartedFragment;
@@ -58,7 +57,9 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void setGettingStarted() {
-        //TODO use butterknife
+        startActivity(new Intent(this, OpeningActivity.class));
+        finish();
+        /*//TODO use butterknife
         FrameLayout lyt = (FrameLayout) findViewById(R.id.frame_splash);
         lyt.removeAllViews();
         FragmentManager manager = getSupportFragmentManager();
@@ -66,7 +67,7 @@ public class SplashActivity extends BaseActivity {
 //        ft.setCustomAnimations(R.anim.fade_out, R.anim.fade_in);
 
         ft.replace(R.id.frame_splash, fragment);
-        ft.commit();
+        ft.commitAllowingStateLoss();*/
 
 
     }

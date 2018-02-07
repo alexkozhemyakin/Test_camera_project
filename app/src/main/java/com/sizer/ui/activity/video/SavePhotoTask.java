@@ -5,7 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.sizer.App;
-import com.sizer.data.ILocalRepository;
+import com.sizer.mvp.model.ILocalRepository;
 import com.sizer.model.ScanData;
 
 import java.io.File;

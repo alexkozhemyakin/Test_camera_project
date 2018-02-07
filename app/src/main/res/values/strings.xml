@@ -19,4 +19,13 @@
     <string name="app_version">1.0</string>
     <string name="height">Height</string>
 
+    <string name="error_empty_field">Field can not be empty</string>
+    <string name="error_weak_password">Password is too weak</string>
+    <string name="loading">Loading…</string>
+
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="thank_you">THANK YOU!</string>
+    <string name="debug">Debug</string>
+
 </resources>

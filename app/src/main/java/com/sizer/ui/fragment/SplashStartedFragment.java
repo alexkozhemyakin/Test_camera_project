@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.sizer.R;
+import com.sizer.ui.activity.ScanActivity;
 import com.sizer.ui.activity.VideoActivity;
 
 import butterknife.OnClick;
@@ -16,7 +17,7 @@ public class SplashStartedFragment extends BaseFragment {
 
     @OnClick(R.id.btn_start)
     void callGetStarted() {
-        getActivity().startActivity(new Intent(getActivity(), VideoActivity.class));
+        getActivity().startActivity(new Intent(getActivity(), ScanActivity.class));
         getActivity().finish();
     }
 

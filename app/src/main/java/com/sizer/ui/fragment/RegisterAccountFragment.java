@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.sizer.App;
 import com.sizer.R;
-import com.sizer.data.IRemoteRepository;
+import com.sizer.mvp.model.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.entity.Gender;
 import com.sizer.model.entity.SizerUser;
@@ -81,7 +81,7 @@ public class RegisterAccountFragment extends BaseFragment {
         sizerUser.setEmail(accountEmail.getText().toString());
         sizerUser.setGender(
             genderGroup.getCheckedRadioButtonId() == R.id.radioMale ?
-                Gender.MALE : Gender.FEMALE);
+                "male" : "female");
         sizerUser.setHeight(Double.parseDouble(accountHeight.getText().toString()));
 
 
