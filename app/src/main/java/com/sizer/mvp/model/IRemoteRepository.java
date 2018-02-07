@@ -1,4 +1,4 @@
-package com.sizer.data;
+package com.sizer.mvp.model;
 
 
 import com.sizer.model.ApiResponse;
@@ -23,6 +23,11 @@ public interface IRemoteRepository {
      * Create/save user
      */
     Call<ApiResponse<SizerUser>> saveUser(SizerUser user);
+
+    /**
+     * Create/save user
+     */
+    Observable<ApiResponse<SizerUser>> saveUserRx(String name, String email, String password, String gender, String height);
 
     /**
      * Upload scan image

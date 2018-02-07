@@ -1,12 +1,17 @@
 package com.sizer.model.entity;
 
 
+import android.util.Size;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SizerUser {
+    @SerializedName("id")
+    @Expose
+    private String userID;
 
     @SerializedName("email")
     @Expose
@@ -26,7 +31,7 @@ public class SizerUser {
 
     @SerializedName("gender")
     @Expose
-    private Gender gender;
+    private String gender;
 
     @SerializedName("device")
     @Expose
@@ -47,6 +52,15 @@ public class SizerUser {
     @SerializedName("measurmentsJson")
     @Expose
     private String measurmentsJson;
+
+    public SizerUser() {}
+
+    public SizerUser(String userId, String email, String name, String gender) {
+        this.userID = userId;
+        this.email = email;
+        this.name = name;
+        this.gender = gender;
+    }
 
     public String getEmail() {
         return email;
@@ -73,10 +87,10 @@ public class SizerUser {
     }
 
     public String getGender() {
-        return gender.name().toLowerCase();
+        return gender.toLowerCase();
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -130,6 +144,13 @@ public class SizerUser {
         return height;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public Map<String, String> getMappedUser() {
         Map<String, String> mappedUser = new HashMap<>();
@@ -137,7 +158,7 @@ public class SizerUser {
         mappedUser.put("email", String.valueOf(this.email));
         mappedUser.put("name", this.name);
         mappedUser.put("password", String.valueOf(this.password));
-        mappedUser.put("gender", String.valueOf(this.gender.name().toLowerCase()));
+        mappedUser.put("gender", String.valueOf(this.gender.toLowerCase()));
         mappedUser.put("device", String.valueOf(this.device));
         mappedUser.put("measurementUnit", String.valueOf(this.measurementUnit));
         mappedUser.put("promotionCode", String.valueOf(this.promotionCode));
@@ -148,4 +169,6 @@ public class SizerUser {
 
         return mappedUser;
     }
+
+
 }
