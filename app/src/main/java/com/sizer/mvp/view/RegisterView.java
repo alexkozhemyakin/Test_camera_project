@@ -7,4 +7,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 public interface RegisterView extends BaseView {
     @StateStrategyType(SingleStateStrategy.class)
     void onSuccess();
+
+    @StateStrategyType(SingleStateStrategy.class)
+    void onUploaded();
+
 }

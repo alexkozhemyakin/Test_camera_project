@@ -12,6 +12,10 @@ import com.sizer.model.ScanData;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.sizer.util.Constants.*;
 
@@ -28,6 +32,13 @@ public class LocalDataRepository implements ILocalRepository {
 
     private SharedPreferences preferences;
 
+    @Override
+    public Map<String, byte[]> getScanList() {
+        return scanList;
+    }
+
+    private Map<String, byte[]> scanList = new HashMap<>();
+
     public LocalDataRepository(Context context) {
         this.context = context;
         this.deviceId = Settings.Secure.getString(context.getContentResolver(),
@@ -43,6 +54,7 @@ public class LocalDataRepository implements ILocalRepository {
         String str = getUniqueDeviceId()+"/"+ getScanData().getScanId()+File.separator;
         scanPath = new File(Environment.getExternalStorageDirectory(), str);
         scanPath.mkdirs();
+        scanList.clear();
         return data;
     }
 
@@ -92,9 +104,9 @@ public class LocalDataRepository implements ILocalRepository {
         if(number==0) {
             setScanData(new ScanData());
         }
-
-        File photo=new File(scanPath, String.format("%06d", number)+".jpg");
-
+        String imageId = String.format("%06d", number)+".jpg";
+        File photo=new File(scanPath, imageId);
+        scanList.put(imageId, jpg);
 
         try {
             if(!photo.exists())

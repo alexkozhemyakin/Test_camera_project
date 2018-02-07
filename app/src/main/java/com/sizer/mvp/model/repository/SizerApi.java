@@ -14,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -69,6 +70,7 @@ public interface SizerApi {
 
 
     @Multipart
+    @Headers("Content-Type: application/json")
     @POST("bp/images/postscan")
     Observable<ApiResponse<JSONObject>> uploadScan(@Part MultipartBody.Part image,
         @Query("imageId") String imageId,
