@@ -233,18 +233,18 @@ public class ScanActivity extends MvpAppCompatActivity implements ScanView {
 
     @Override
     public void onScanFinish() {
-        startActivity(new Intent(this,RegisterActivity.class));
+        startActivity(new Intent(this, RegisterActivity.class));
         finish();
     }
 
     @Override
     public void showMessage(String msg) {
-        Snackbar.make(findViewById(android.R.id.content),msg,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showLoading(boolean state) {
-        if(state)
+        if (state)
             snackbar.show();
         else snackbar.dismiss();
     }

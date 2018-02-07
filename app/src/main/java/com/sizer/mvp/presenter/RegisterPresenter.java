@@ -29,8 +29,8 @@ public class RegisterPresenter extends MvpPresenter<RegisterView> {
         App.getAppComponent().inject(this);
     }
 
-    public void callRegister(String email,String password,
-                String name, String height, String gender) {
+    public void callRegister(String email, String password,
+                             String name, String height, String gender) {
         getViewState().showLoading(true);
         remoteRepository.saveUserRx(name, email, password, gender, height)
                 .subscribeOn(Schedulers.io())
@@ -39,7 +39,7 @@ public class RegisterPresenter extends MvpPresenter<RegisterView> {
                     @Override
                     public void accept(ApiResponse<SizerUser> sizerUserApiResponse) throws Exception {
                         getViewState().showLoading(false);
-                        if(sizerUserApiResponse.getResultCode().equals("Error")) {
+                        if (sizerUserApiResponse.getResultCode().equals("Error")) {
                             getViewState().showLoading(false);
                             getViewState().showMessage(sizerUserApiResponse.getMessage());
                             return;
