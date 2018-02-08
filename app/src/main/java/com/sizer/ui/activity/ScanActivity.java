@@ -111,7 +111,7 @@ public class ScanActivity extends MvpAppCompatActivity implements ScanView {
         }
 
         cameraSource = new CameraSource.Builder(context, presenter.getDetector())
-                .setRequestedPreviewSize(480, 640)
+                .setRequestedPreviewSize(640, 480)
                 .setFacing(CameraSource.CAMERA_FACING_FRONT)
                 .setRequestedFps(30f)
                 .build();

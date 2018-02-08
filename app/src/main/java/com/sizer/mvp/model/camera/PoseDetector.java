@@ -16,6 +16,9 @@ import com.sizer.util.ImageUtil;
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.TimeUnit;
 
+import static com.sizer.util.Constants.FRAME_HEIGHT;
+import static com.sizer.util.Constants.FRAME_WIDTH;
+
 /**
  * Extends GMS Detector. Detects Poses from every Frame
  */
@@ -51,9 +54,9 @@ public class PoseDetector extends Detector<Pose> {
         if (numFrame < Constants.NUM_FRAMES)
         {
             if(listener!=null) {
-                YuvImage yuvImage = new YuvImage(ImageUtil.rotateNV21(frame.getGrayscaleImageData().array(), frame.getMetadata().getWidth(), frame.getMetadata().getHeight(),isFront?270:90, isFront), ImageFormat.NV21, frame.getMetadata().getHeight(), frame.getMetadata().getWidth(), null);
+                YuvImage yuvImage = new YuvImage(ImageUtil.rotateNV21(frame.getGrayscaleImageData().array(), frame.getMetadata().getWidth(), frame.getMetadata().getHeight(),isFront?270:90, isFront), ImageFormat.NV21, FRAME_WIDTH, FRAME_HEIGHT, null);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                yuvImage.compressToJpeg(new Rect(0, 0, frame.getMetadata().getHeight(), frame.getMetadata().getWidth()), 50, baos);
+                yuvImage.compressToJpeg(new Rect(0, 0, FRAME_WIDTH, FRAME_HEIGHT), 75, baos);
                 byte[] jpegArray = baos.toByteArray();
                 listener.onPoseImage(jpegArray, numFrame);
             }
