@@ -144,6 +144,7 @@ public class SizerUser {
 
     public void setHeight(Double height) {
         this.height = height;
+        this.measurmentsJson = "[{measurmentTypeId=Height,measurmentValue:"+String.valueOf(height)+"}]";
     }
 
     public Double getHeight() {
@@ -175,6 +176,5 @@ public class SizerUser {
 
         return mappedUser;
     }
-
 
 }

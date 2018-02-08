@@ -210,4 +210,10 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
     void onClickDone() {
         onBackPressed();
     }
+
+    @Override
+    protected void onDestroy() {
+        presenter.callScanFinish();
+        super.onDestroy();
+    }
 }

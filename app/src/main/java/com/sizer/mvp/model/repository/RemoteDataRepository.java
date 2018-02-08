@@ -1,9 +1,13 @@
 package com.sizer.mvp.model.repository;
 
+import android.util.Size;
+
 import com.sizer.mvp.model.IRemoteRepository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
+
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.Map;
 import okhttp3.MultipartBody;
@@ -40,14 +44,19 @@ public class RemoteDataRepository implements IRemoteRepository {
     }
 
     @Override
+    public Observable<ApiResponse<SizerUser>> saveFullUserRx(SizerUser user) {
+        return sizerApi.saveFullUserRx(user.getMappedUser());
+    }
+
+    @Override
     public Call<ApiResponse<SizerUser>> saveFullUser(Map<String, String> mappedUser) {
         return sizerApi.saveFullUser(mappedUser);
     }
 
 
     @Override
-    public Observable<ApiResponse<JSONObject>> uploadScan(MultipartBody.Part image, String imageId,
-        String userId, String scanId) {
+    public Completable uploadScan(MultipartBody.Part image, String imageId,
+                                  String userId, String scanId) {
         return sizerApi.uploadScan(image, imageId, userId, scanId);
     }
 

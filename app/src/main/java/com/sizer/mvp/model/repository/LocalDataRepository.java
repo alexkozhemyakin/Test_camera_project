@@ -111,7 +111,7 @@ public class LocalDataRepository implements ILocalRepository {
         if (number == 0) {
             setScanData(new ScanData());
         }
-        String imageId = String.format("%06d", number) + ".jpg";
+        String imageId = String.format("%06d", number+1) + ".jpg";
         File photo = new File(scanPath, imageId);
         scanList.put(imageId, jpg);
 

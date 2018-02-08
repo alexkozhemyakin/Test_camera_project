@@ -4,6 +4,8 @@ package com.sizer.mvp.model.repository;
 import com.sizer.model.ApiResponse;
 import com.sizer.model.Version;
 import com.sizer.model.entity.SizerUser;
+
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.Map;
 import okhttp3.MultipartBody;
@@ -43,6 +45,10 @@ public interface SizerApi {
 
 
     @POST("bpp/user/save")
+    Observable<ApiResponse<SizerUser>> saveFullUserRx(@QueryMap Map<String, String> mappedUser);
+
+
+    @POST("bpp/user/save")
     Call<ApiResponse<SizerUser>> saveFullUser(@QueryMap Map<String, String> mappedUser);
 
 
@@ -70,9 +76,8 @@ public interface SizerApi {
 
 
     @Multipart
-    @Headers("Content-Type: application/json")
     @POST("bp/images/postscan")
-    Observable<ApiResponse<JSONObject>> uploadScan(@Part MultipartBody.Part image,
-        @Query("imageId") String imageId,
-        @Query("userId") String userId, @Query("scanId") String scanId);
+    Completable uploadScan(@Part MultipartBody.Part image,
+                           @Query("imageId") String imageId,
+                           @Query("userId") String userId, @Query("scanId") String scanId);
 }

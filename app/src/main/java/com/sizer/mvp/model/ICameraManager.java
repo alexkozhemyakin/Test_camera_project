@@ -9,4 +9,6 @@ public interface ICameraManager {
 
     PoseProcessor getProcessor();
 
+    void resetScan();
+
 }

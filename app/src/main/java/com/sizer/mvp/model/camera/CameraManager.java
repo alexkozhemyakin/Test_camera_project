@@ -22,4 +22,10 @@ public class CameraManager implements ICameraManager {
     public PoseProcessor getProcessor() {
         return processor;
     }
+
+    @Override
+    public void resetScan() {
+        detector.reset();
+    }
+
 }
