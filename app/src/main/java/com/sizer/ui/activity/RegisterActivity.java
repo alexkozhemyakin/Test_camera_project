@@ -72,6 +72,7 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
     @BindView(R.id.btn_create)
     Button btnCreate;
 
+
     Snackbar loadingSnackbar;
 
     private boolean isLoading;
@@ -105,6 +106,8 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
                 return false;
             }
         });
+
+        presenter.callUpload();
     }
 
     @OnFocusChange({R.id.edit_email, R.id.edit_password, R.id.edit_name, R.id.edit_height})
@@ -116,7 +119,7 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
         }
 
         if (editPassword.length() > 0) {
-            if (editPassword.length() < 7) {
+            if (editPassword.length() < 6) {
                 setFieldError(tilPassword, R.string.error_weak_password);
             } else {
                 tilPassword.setErrorEnabled(false);
@@ -160,35 +163,14 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
 
     @Override
     public void onSuccess() {
-        layoutUpload.setVisibility(View.VISIBLE);
-        presenter.callUpload();
+        layoutRegister.setVisibility(View.GONE);
+        layoutDone.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onUploaded() {
         layoutUpload.setVisibility(View.GONE);
-        layoutDone.setAlpha(0f);
-        layoutDone.setVisibility(View.VISIBLE);
-
-        // Animate the content view to 100% opacity, and clear any animation
-        // listener set on the view.
-        layoutDone.animate()
-                .alpha(1f)
-                .setDuration(animTime)
-                .setListener(null);
-
-        // Animate the loading view to 0% opacity. After the animation ends,
-        // set its visibility to GONE as an optimization step (it won't
-        // participate in layout passes, etc.)
-        layoutRegister.animate()
-                .alpha(0f)
-                .setDuration(animTime)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        layoutRegister.setVisibility(View.GONE);
-                    }
-                });
+        btnCreate.setEnabled(true);
     }
 
     @Override

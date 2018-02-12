@@ -27,6 +27,6 @@
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
     <string name="thank_you">THANK YOU!</string>
     <string name="debug">Debug</string>
-    <string name="uploading_images">Uploading images...</string>
+    <string name="uploading_images">Uploading images…</string>
 
 </resources>

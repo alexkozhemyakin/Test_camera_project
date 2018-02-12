@@ -61,6 +61,7 @@ public class RegisterPresenter extends MvpPresenter<RegisterView> {
         user.setName(name);
         user.setHeight(Double.valueOf(height));
         user.setGender(gender);
+        user.setManualFolder(localRepository.getManualFolder());
         remoteRepository.saveFullUserRx(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,7 +110,7 @@ public class RegisterPresenter extends MvpPresenter<RegisterView> {
         for (Map.Entry<String, byte[]> entry: localRepository.getScanList().entrySet()) {
             RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), entry.getValue());
             requests.add(remoteRepository.uploadScan(MultipartBody.Part.createFormData("file",entry.getKey(),body),entry.getKey(),
-                    localRepository.getSizerUser().getUserID(),localRepository.getScanData().getScanId()));
+                    localRepository.getUniqueDeviceId(),localRepository.getScanData().getScanId()));
         }
         return requests;
     }

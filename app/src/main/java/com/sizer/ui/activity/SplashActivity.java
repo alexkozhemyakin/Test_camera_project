@@ -9,8 +9,7 @@ import com.sizer.R;
 
 public class SplashActivity extends BaseActivity {
 
-    View v;
-    Handler h;
+    Handler h = new Handler();
 
     private Runnable start = this::startNext;
 
@@ -22,10 +21,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        h = new Handler();
+    @Override
+    protected void onResume() {
+        super.onResume();
         h.postDelayed(start, 1500);
-
     }
 
     public void startNext() {
